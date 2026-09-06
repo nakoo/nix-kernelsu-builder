@@ -1,6 +1,6 @@
-From 8133aa0ac3c95fbb745ff7ed43ff9f3434c41511 Mon Sep 17 00:00:00 2001
+From f06903a4464abba64ff58a14662dadcac38024f3 Mon Sep 17 00:00:00 2001
 From: user <user@host>
-Date: Sun, 6 Sep 2026 10:41:15 +0000
+Date: Sun, 6 Sep 2026 13:30:42 +0000
 Subject: [PATCH] resukisu-manual-hooks-coral.patch
 
 ---
@@ -8,14 +8,14 @@ Subject: [PATCH] resukisu-manual-hooks-coral.patch
  fs/exec.c                    | 10 ++++++++++
  fs/open.c                    | 10 ++++++++++
  fs/read_write.c              |  8 ++++++++
- fs/stat.c                    | 23 +++++++++++++++++++++++
+ fs/stat.c                    | 12 ++++++++++++
  kernel/reboot.c              |  8 ++++++++
  kernel/sys.c                 |  7 +++++++
  security/selinux/selinuxfs.c |  4 ++--
- 8 files changed, 77 insertions(+), 2 deletions(-)
+ 8 files changed, 66 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/input/input.c b/drivers/input/input.c
-index c5c301d0956b..134639c6b63c 100644
+index c5c301d0956b..9ce53433458d 100644
 --- a/drivers/input/input.c
 +++ b/drivers/input/input.c
 @@ -443,11 +443,20 @@ static void input_handle_event(struct input_dev *dev,
@@ -40,7 +40,7 @@ index c5c301d0956b..134639c6b63c 100644
  
  		spin_lock_irqsave(&dev->event_lock, flags);
 diff --git a/fs/exec.c b/fs/exec.c
-index 3772c60aa9ba..53aba15eb8e0 100644
+index 3772c60aa9ba..89359205e447 100644
 --- a/fs/exec.c
 +++ b/fs/exec.c
 @@ -1880,11 +1880,21 @@ static int __do_execve_file(int fd, struct filename *filename,
@@ -66,7 +66,7 @@ index 3772c60aa9ba..53aba15eb8e0 100644
  }
  
 diff --git a/fs/open.c b/fs/open.c
-index 004c8ddb891e..1677884f11ac 100644
+index 004c8ddb891e..3b355e98e255 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -354,6 +354,12 @@ SYSCALL_DEFINE4(fallocate, int, fd, int, mode, loff_t, offset, loff_t, len)
@@ -94,7 +94,7 @@ index 004c8ddb891e..1677884f11ac 100644
  		return -EINVAL;
  
 diff --git a/fs/read_write.c b/fs/read_write.c
-index 0da6e4f19d7f..e9850ee6831b 100644
+index 0da6e4f19d7f..bba33285b4f2 100644
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
 @@ -568,11 +568,19 @@ static inline void file_pos_write(struct file *file, loff_t pos)
@@ -118,10 +118,10 @@ index 0da6e4f19d7f..e9850ee6831b 100644
  		loff_t pos = file_pos_read(f.file);
  		ret = vfs_read(f.file, buf, count, &pos);
 diff --git a/fs/stat.c b/fs/stat.c
-index 0fda4b6b8fb2..370873c161af 100644
+index 0fda4b6b8fb2..ed0bcac6fd8d 100644
 --- a/fs/stat.c
 +++ b/fs/stat.c
-@@ -353,6 +353,17 @@ SYSCALL_DEFINE2(newlstat, const char __user *, filename,
+@@ -353,6 +353,12 @@ SYSCALL_DEFINE2(newlstat, const char __user *, filename,
  	return cp_new_stat(&stat, statbuf);
  }
  
@@ -129,17 +129,12 @@ index 0fda4b6b8fb2..370873c161af 100644
 +__attribute__((hot)) 
 +extern int ksu_handle_stat(int *dfd, const char __user **filename_user,
 +				int *flags);
-+
-+extern void ksu_handle_newfstat_ret(unsigned int *fd, struct stat __user **statbuf_ptr);
-+#if defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_COMPAT_STAT64)
-+extern void ksu_handle_fstat64_ret(unsigned long *fd, struct stat64 __user **statbuf_ptr); // optional
-+#endif
 +#endif
 +
  #if !defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_SYS_NEWFSTATAT)
  SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
  		struct stat __user *, statbuf, int, flag)
-@@ -360,6 +371,9 @@ SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
+@@ -360,6 +366,9 @@ SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
  	struct kstat stat;
  	int error;
  
@@ -149,27 +144,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	error = vfs_fstatat(dfd, filename, &stat, flag);
  	if (error)
  		return error;
-@@ -375,6 +389,9 @@ SYSCALL_DEFINE2(newfstat, unsigned int, fd, struct stat __user *, statbuf)
- 	if (!error)
- 		error = cp_new_stat(&stat, statbuf);
- 
-+#ifdef CONFIG_KSU
-+	ksu_handle_newfstat_ret(&fd, &statbuf);
-+#endif
- 	return error;
- }
- 
-@@ -495,6 +512,9 @@ SYSCALL_DEFINE2(fstat64, unsigned long, fd, struct stat64 __user *, statbuf)
- 	if (!error)
- 		error = cp_new_stat64(&stat, statbuf);
- 
-+#ifdef CONFIG_KSU // for 32-bit
-+	ksu_handle_fstat64_ret(&fd, &statbuf);
-+#endif
- 	return error;
- }
- 
-@@ -504,6 +524,9 @@ SYSCALL_DEFINE4(fstatat64, int, dfd, const char __user *, filename,
+@@ -504,6 +513,9 @@ SYSCALL_DEFINE4(fstatat64, int, dfd, const char __user *, filename,
  	struct kstat stat;
  	int error;
  
@@ -180,7 +155,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	if (error)
  		return error;
 diff --git a/kernel/reboot.c b/kernel/reboot.c
-index 2946ed1d99d4..ac2bcff5dff8 100644
+index 2946ed1d99d4..8fde32b5cee4 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
 @@ -277,6 +277,11 @@ static DEFINE_MUTEX(reboot_mutex);
@@ -206,7 +181,7 @@ index 2946ed1d99d4..ac2bcff5dff8 100644
  	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))
  		return -EPERM;
 diff --git a/kernel/sys.c b/kernel/sys.c
-index f9c2a076caed..53d6174b552c 100644
+index f9c2a076caed..b0f33248db7b 100644
 --- a/kernel/sys.c
 +++ b/kernel/sys.c
 @@ -590,6 +590,9 @@ SYSCALL_DEFINE1(setuid, uid_t, uid)
