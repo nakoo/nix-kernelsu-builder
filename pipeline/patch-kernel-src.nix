@@ -12,7 +12,7 @@
   susfs,
   bbg,
   prePatch,
-  postPatches ? [],
+  postPatches ? [ ],
   postPatch,
   ...
 }:

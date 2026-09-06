@@ -3,6 +3,7 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
+  dockerTools,
 }:
 {
   anykernel-kernelsu = {
@@ -186,15 +187,15 @@
   };
   resukisu = {
     pname = "resukisu";
-    version = "3c1882886dbbb54f4aae7ddf205f8ccde32c2a34";
+    version = "88695111d70a6c4dc490a8f46be7694f9eea36e0";
     src = fetchFromGitHub {
       owner = "ReSukiSU";
       repo = "ReSukiSU";
-      rev = "3c1882886dbbb54f4aae7ddf205f8ccde32c2a34";
+      rev = "88695111d70a6c4dc490a8f46be7694f9eea36e0";
       fetchSubmodules = false;
-      sha256 = "sha256-C+bIWqLS9V4XYMHl5Mu/6YhPsiYnrP+fbSKp0H7HUdo=";
+      sha256 = "sha256-2DfBT2qUpZLwG8Rgse4/mf94jnEqUOVcBz+z07NE4hA=";
     };
-    date = "2026-09-05";
+    date = "2026-09-06";
   };
   sukisu = {
     pname = "sukisu";
@@ -222,31 +223,31 @@
   };
   susfs-android13-5_15 = {
     pname = "susfs-android13-5_15";
-    version = "bca0d2333c1a7d717e7278b019d7af7ba1d16005";
+    version = "5e1148cd9ed675e20b60c1743e6b32c67b3d438e";
     src = fetchgit {
       url = "https://gitlab.com/simonpunk/susfs4ksu.git";
-      rev = "bca0d2333c1a7d717e7278b019d7af7ba1d16005";
+      rev = "5e1148cd9ed675e20b60c1743e6b32c67b3d438e";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-7N7utATNuaYq47O61/s5ppVNAyRjolhj/cX31vtTvPg=";
+      sha256 = "sha256-gmIIzVP74lc0wIPcWXN6qZSU0gpyXgf7TK7q0/4zBGQ=";
     };
-    date = "2026-08-30";
+    date = "2026-09-06";
   };
   susfs-android15-6_6 = {
     pname = "susfs-android15-6_6";
-    version = "937215cb3a1b1f333d764c366c7a49972fa8e7a0";
+    version = "8224c73ba76fbfbcbfc1fe0c16970fbd9baad2e0";
     src = fetchgit {
       url = "https://gitlab.com/simonpunk/susfs4ksu.git";
-      rev = "937215cb3a1b1f333d764c366c7a49972fa8e7a0";
+      rev = "8224c73ba76fbfbcbfc1fe0c16970fbd9baad2e0";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-jp6g9b+JbyXgfKh+RjKxxpSybje27eLXEXr1+koCLNk=";
+      sha256 = "sha256-A4za29vbIl/Nb7eD2M2jWPISyQCjQLhBX7P/90am7AM=";
     };
-    date = "2026-08-30";
+    date = "2026-09-06";
   };
   susfs-kernel-4_14 = {
     pname = "susfs-kernel-4_14";

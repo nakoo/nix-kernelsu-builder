@@ -308,7 +308,7 @@
     },
     "resukisu": {
         "cargoLock": null,
-        "date": "2026-09-05",
+        "date": "2026-09-06",
         "extract": null,
         "name": "resukisu",
         "passthru": null,
@@ -320,12 +320,12 @@
             "name": null,
             "owner": "ReSukiSU",
             "repo": "ReSukiSU",
-            "rev": "3c1882886dbbb54f4aae7ddf205f8ccde32c2a34",
-            "sha256": "sha256-C+bIWqLS9V4XYMHl5Mu/6YhPsiYnrP+fbSKp0H7HUdo=",
+            "rev": "88695111d70a6c4dc490a8f46be7694f9eea36e0",
+            "sha256": "sha256-2DfBT2qUpZLwG8Rgse4/mf94jnEqUOVcBz+z07NE4hA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3c1882886dbbb54f4aae7ddf205f8ccde32c2a34"
+        "version": "88695111d70a6c4dc490a8f46be7694f9eea36e0"
     },
     "sukisu": {
         "cargoLock": null,
@@ -371,7 +371,7 @@
     },
     "susfs-android13-5_15": {
         "cargoLock": null,
-        "date": "2026-08-30",
+        "date": "2026-09-06",
         "extract": null,
         "name": "susfs-android13-5_15",
         "passthru": null,
@@ -381,17 +381,17 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "bca0d2333c1a7d717e7278b019d7af7ba1d16005",
-            "sha256": "sha256-7N7utATNuaYq47O61/s5ppVNAyRjolhj/cX31vtTvPg=",
+            "rev": "5e1148cd9ed675e20b60c1743e6b32c67b3d438e",
+            "sha256": "sha256-gmIIzVP74lc0wIPcWXN6qZSU0gpyXgf7TK7q0/4zBGQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/simonpunk/susfs4ksu.git"
         },
-        "version": "bca0d2333c1a7d717e7278b019d7af7ba1d16005"
+        "version": "5e1148cd9ed675e20b60c1743e6b32c67b3d438e"
     },
     "susfs-android15-6_6": {
         "cargoLock": null,
-        "date": "2026-08-30",
+        "date": "2026-09-06",
         "extract": null,
         "name": "susfs-android15-6_6",
         "passthru": null,
@@ -401,13 +401,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "937215cb3a1b1f333d764c366c7a49972fa8e7a0",
-            "sha256": "sha256-jp6g9b+JbyXgfKh+RjKxxpSybje27eLXEXr1+koCLNk=",
+            "rev": "8224c73ba76fbfbcbfc1fe0c16970fbd9baad2e0",
+            "sha256": "sha256-A4za29vbIl/Nb7eD2M2jWPISyQCjQLhBX7P/90am7AM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.com/simonpunk/susfs4ksu.git"
         },
-        "version": "937215cb3a1b1f333d764c366c7a49972fa8e7a0"
+        "version": "8224c73ba76fbfbcbfc1fe0c16970fbd9baad2e0"
     },
     "susfs-kernel-4_14": {
         "cargoLock": null,

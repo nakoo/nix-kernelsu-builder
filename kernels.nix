@@ -35,7 +35,7 @@ _: {
           ];
           postPatches = [
             ./resources/susfs-1.5.5-resukisu-compat.patch
-          ]
+          ];
           kernelSrc = sources.linux-google-coral.src;
           oemBootImg = ./resources/coral-boot.img;
         };
