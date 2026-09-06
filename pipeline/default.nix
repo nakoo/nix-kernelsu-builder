@@ -19,6 +19,7 @@
   susfs,
   bbg,
   prePatch,
+  postPatches ? [ ],
   postPatch,
 }:
 let
@@ -29,6 +30,7 @@ let
         susfs
         bbg
         prePatch
+        postPatches
         postPatch
         ;
       src = kernelSrc;

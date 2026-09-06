@@ -12,6 +12,7 @@
   susfs,
   bbg,
   prePatch,
+  postPatches ? [],
   postPatch,
   ...
 }:
@@ -126,6 +127,10 @@ stdenv.mkDerivation {
     substituteInPlace "Makefile" \
       --replace-fail "/bin/" ""
   ''
+  + (lib.concatMapStringsSep "\n" (p: ''
+    echo "applying post-patch ${p}"
+    patch -p1 < ${p}
+  '') postPatches)
   + postPatch;
 
   dontBuild = true;

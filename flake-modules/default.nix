@@ -137,6 +137,11 @@
               description = "List of patch files to be applied to kernel";
               default = [ ];
             };
+            postPatches = lib.mkOption {
+              type = lib.types.listOf (lib.types.either lib.types.str lib.types.path);
+              description = "List of patch files to be applied after SuSFS and KernelSU are applied";
+              default = [ ];
+            };
             kernelSrc = lib.mkOption {
               type = lib.types.either lib.types.str lib.types.path;
               description = "Source code of the kernel";
