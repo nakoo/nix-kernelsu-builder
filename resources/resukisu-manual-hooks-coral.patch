@@ -1,6 +1,6 @@
-From 39b45da03517c05d1260361dd7cefba8904d5b8a Mon Sep 17 00:00:00 2001
+From 196d09fa08e82d9012c40508b5f2be981e3ba3e7 Mon Sep 17 00:00:00 2001
 From: user <user@host>
-Date: Sun, 6 Sep 2026 09:16:28 +0000
+Date: Sun, 6 Sep 2026 09:53:01 +0000
 Subject: [PATCH] resukisu-manual-hooks-coral.patch
 
 ---
@@ -8,8 +8,9 @@ Subject: [PATCH] resukisu-manual-hooks-coral.patch
  fs/open.c                    | 10 ++++++++++
  fs/stat.c                    | 23 +++++++++++++++++++++++
  kernel/reboot.c              |  8 ++++++++
+ kernel/sys.c                 |  7 +++++++
  security/selinux/selinuxfs.c |  4 ++--
- 5 files changed, 53 insertions(+), 2 deletions(-)
+ 6 files changed, 60 insertions(+), 2 deletions(-)
 
 diff --git a/fs/exec.c b/fs/exec.c
 index 3772c60aa9ba..53aba15eb8e0 100644
@@ -153,6 +154,31 @@ index 2946ed1d99d4..ac2bcff5dff8 100644
  	/* We only trust the superuser with rebooting the system. */
  	if (!ns_capable(pid_ns->user_ns, CAP_SYS_BOOT))
  		return -EPERM;
+diff --git a/kernel/sys.c b/kernel/sys.c
+index f9c2a076caed..53d6174b552c 100644
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -590,6 +590,9 @@ SYSCALL_DEFINE1(setuid, uid_t, uid)
+ 	return retval;
+ }
+ 
++#ifdef CONFIG_KSU
++extern int ksu_handle_setresuid(uid_t ruid, uid_t euid, uid_t suid);
++#endif
+ 
+ /*
+  * This function implements a generic ability to update ruid, euid,
+@@ -603,6 +606,10 @@ SYSCALL_DEFINE3(setresuid, uid_t, ruid, uid_t, euid, uid_t, suid)
+ 	int retval;
+ 	kuid_t kruid, keuid, ksuid;
+ 
++#ifdef CONFIG_KSU
++       (void)ksu_handle_setresuid(ruid, euid, suid);
++#endif
++
+ 	kruid = make_kuid(ns, ruid);
+ 	keuid = make_kuid(ns, euid);
+ 	ksuid = make_kuid(ns, suid);
 diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
 index 0eeadfe8bdb4..bb7a5b59e13d 100644
 --- a/security/selinux/selinuxfs.c
