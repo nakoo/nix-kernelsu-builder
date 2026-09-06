@@ -21,7 +21,7 @@ index 3772c60aa9ba..53aba15eb8e0 100644
  	return retval;
  }
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +__attribute__((hot))
 +extern int ksu_handle_execveat(int *fd, struct filename **filename_ptr,
 +				void *argv, void *envp, int *flags);
@@ -32,7 +32,7 @@ index 3772c60aa9ba..53aba15eb8e0 100644
  			      struct user_arg_ptr envp,
  			      int flags)
  {
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +	ksu_handle_execveat(&fd, &filename, &argv, &envp, &flags);
 +#endif
 +
@@ -47,7 +47,7 @@ index 004c8ddb891e..1677884f11ac 100644
  	return error;
  }
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +__attribute__((hot)) 
 +extern int ksu_handle_faccessat(int *dfd, const char __user **filename_user,
 +				int *mode, int *flags);
@@ -60,7 +60,7 @@ index 004c8ddb891e..1677884f11ac 100644
  	int res;
  	unsigned int lookup_flags = LOOKUP_FOLLOW;
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +	ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
 +#endif
 +
@@ -75,7 +75,7 @@ index 0da6e4f19d7f..e9850ee6831b 100644
  		file->f_pos = pos;
  }
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +extern __attribute__((cold)) int ksu_handle_sys_read(unsigned int fd,
 +				char __user **buf_ptr, size_t *count_ptr);
 +#endif
@@ -85,7 +85,7 @@ index 0da6e4f19d7f..e9850ee6831b 100644
  	struct fd f = fdget_pos(fd);
  	ssize_t ret = -EBADF;
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +	ksu_handle_sys_read(fd, &buf, &count);
 +#endif
  	if (f.file) {
@@ -99,7 +99,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	return cp_new_stat(&stat, statbuf);
  }
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +__attribute__((hot)) 
 +extern int ksu_handle_stat(int *dfd, const char __user **filename_user,
 +				int *flags);
@@ -117,7 +117,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	struct kstat stat;
  	int error;
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +	ksu_handle_stat(&dfd, &filename, &flag);
 +#endif
  	error = vfs_fstatat(dfd, filename, &stat, flag);
@@ -127,7 +127,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	if (!error)
  		error = cp_new_stat(&stat, statbuf);
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +	ksu_handle_newfstat_ret(&fd, &statbuf);
 +#endif
  	return error;
@@ -137,7 +137,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	if (!error)
  		error = cp_new_stat64(&stat, statbuf);
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK // for 32-bit
++#ifdef CONFIG_KSU // for 32-bit
 +	ksu_handle_fstat64_ret(&fd, &statbuf);
 +#endif
  	return error;
@@ -147,7 +147,7 @@ index 0fda4b6b8fb2..370873c161af 100644
  	struct kstat stat;
  	int error;
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK // 32-bit su
++#ifdef CONFIG_KSU // 32-bit su
 +	ksu_handle_stat(&dfd, &filename, &flag); 
 +#endif
  	error = vfs_fstatat(dfd, filename, &stat, flag);
@@ -162,7 +162,7 @@ index 2946ed1d99d4..ac2bcff5dff8 100644
   * reboot doesn't sync: do that yourself before calling this.
   */
 +
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +extern int ksu_handle_sys_reboot(int magic1, int magic2, unsigned int cmd, void __user **arg);
 +#endif
 +
@@ -173,7 +173,7 @@ index 2946ed1d99d4..ac2bcff5dff8 100644
  	char buffer[256];
  	int ret = 0;
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +	ksu_handle_sys_reboot(magic1, magic2, cmd, &arg);
 +#endif
  	/* We only trust the superuser with rebooting the system. */
@@ -187,7 +187,7 @@ index f9c2a076caed..53d6174b552c 100644
  	return retval;
  }
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +extern int ksu_handle_setresuid(uid_t ruid, uid_t euid, uid_t suid);
 +#endif
  
@@ -197,7 +197,7 @@ index f9c2a076caed..53d6174b552c 100644
  	int retval;
  	kuid_t kruid, keuid, ksuid;
  
-+#ifdef CONFIG_KSU_MANUAL_HOOK
++#ifdef CONFIG_KSU
 +       (void)ksu_handle_setresuid(ruid, euid, suid);
 +#endif
 +
