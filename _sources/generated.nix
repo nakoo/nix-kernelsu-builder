@@ -3,7 +3,6 @@
   fetchgit,
   fetchurl,
   fetchFromGitHub,
-  dockerTools,
 }:
 {
   anykernel-kernelsu = {
@@ -112,6 +111,18 @@
       sha256 = "sha256-viqlQBPd2SuiAphFKiwjtckC3gDTGkbLv2dgZKMP3Oc=";
     };
     date = "2023-10-09";
+  };
+  linux-google-coral = {
+    pname = "linux-google-coral";
+    version = "d5e735b330888123bac951d8305edc8f6828bb17";
+    src = fetchFromGitHub {
+      owner = "LineageOS";
+      repo = "android_kernel_google_msm-4.14";
+      rev = "d5e735b330888123bac951d8305edc8f6828bb17";
+      fetchSubmodules = false;
+      sha256 = "sha256-zX6TyaRK4bVJwoamtU7EO9J+nJNrNeQ8pgRErE4EI/Y=";
+    };
+    date = "2026-08-29";
   };
   linux-moto-rtwo-lineageos-21 = {
     pname = "linux-moto-rtwo-lineageos-21";
@@ -236,6 +247,20 @@
       sha256 = "sha256-jp6g9b+JbyXgfKh+RjKxxpSybje27eLXEXr1+koCLNk=";
     };
     date = "2026-08-30";
+  };
+  susfs-kernel-4_14 = {
+    pname = "susfs-kernel-4_14";
+    version = "77905b5a071e6f3669e3b1814cea30147c0801da";
+    src = fetchgit {
+      url = "https://gitlab.com/simonpunk/susfs4ksu.git";
+      rev = "77905b5a071e6f3669e3b1814cea30147c0801da";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-cbQNeNp+sbm/6PH1KWCH5ggGy9KbGbzX7qUkhmc+Tdc=";
+    };
+    date = "2025-02-23";
   };
   wildplus-kernel-patches = {
     pname = "wildplus-kernel-patches";

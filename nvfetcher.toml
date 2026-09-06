@@ -38,6 +38,11 @@ fetch.github = "mt8163/android_kernel_amazon_karnak_4.9"
 src.git = "https://github.com/mt8163/android_kernel_amazon_karnak_4.9.git"
 src.branch = "lineage-20.0"
 
+[linux-google-coral]
+fetch.github = "LineageOS/android_kernel_google_msm-4.14"
+src.git = "https://github.com/LineageOS/android_kernel_google_msm-4.14.git"
+src.branch = "lineage-23.2"
+
 [linux-moto-rtwo-lineageos-21]
 fetch.github = "LineageOS/android_kernel_motorola_sm8550"
 src.git = "https://github.com/LineageOS/android_kernel_motorola_sm8550.git"
@@ -85,6 +90,11 @@ src.branch = "gki-android13-5.15"
 fetch.git = "https://gitlab.com/simonpunk/susfs4ksu.git"
 src.git = "https://gitlab.com/simonpunk/susfs4ksu.git"
 src.branch = "gki-android15-6.6"
+
+[susfs-kernel-4_14]
+fetch.git = "https://gitlab.com/simonpunk/susfs4ksu.git"
+src.git = "https://gitlab.com/simonpunk/susfs4ksu.git"
+src.branch = "kernel-4.14"
 
 [wildplus-kernel-patches]
 fetch.github = "WildPlusKernel/kernel_patches"

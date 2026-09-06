@@ -7,6 +7,7 @@
   cpio,
   elfutils,
   flex,
+  lz4,
   gmp,
   kmod,
   libmpc,
@@ -93,6 +94,7 @@ fixedStdenv.mkDerivation {
     cpio
     elfutils
     flex
+    lz4
     gmp
     kmod
     libmpc
@@ -126,7 +128,14 @@ fixedStdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    make -j$(nproc) ${builtins.concatStringsSep " " finalMakeFlags}
+    CORES=''${NIX_BUILD_CORES:-1}
+    if [ "$CORES" -le 0 ]; then
+      CORES=$(nproc)
+    fi
+
+    make j$CORES \
+      LDFLAGS_vmlinux="--thinlto-jobs=$CORES" \
+      ${builtins.concatStringsSep " " finalMakeFlags}
 
     runHook postInstall
   '';

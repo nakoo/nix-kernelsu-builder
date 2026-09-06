@@ -180,6 +180,27 @@
         },
         "version": "e22c713c7c4f0c8d08267f6bba98b8c4cde8310f"
     },
+    "linux-google-coral": {
+        "cargoLock": null,
+        "date": "2026-08-29",
+        "extract": null,
+        "name": "linux-google-coral",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "LineageOS",
+            "repo": "android_kernel_google_msm-4.14",
+            "rev": "d5e735b330888123bac951d8305edc8f6828bb17",
+            "sha256": "sha256-zX6TyaRK4bVJwoamtU7EO9J+nJNrNeQ8pgRErE4EI/Y=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d5e735b330888123bac951d8305edc8f6828bb17"
+    },
     "linux-moto-rtwo-lineageos-21": {
         "cargoLock": null,
         "date": "2024-12-21",
@@ -387,6 +408,26 @@
             "url": "https://gitlab.com/simonpunk/susfs4ksu.git"
         },
         "version": "937215cb3a1b1f333d764c366c7a49972fa8e7a0"
+    },
+    "susfs-kernel-4_14": {
+        "cargoLock": null,
+        "date": "2025-02-23",
+        "extract": null,
+        "name": "susfs-kernel-4_14",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "77905b5a071e6f3669e3b1814cea30147c0801da",
+            "sha256": "sha256-cbQNeNp+sbm/6PH1KWCH5ggGy9KbGbzX7qUkhmc+Tdc=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gitlab.com/simonpunk/susfs4ksu.git"
+        },
+        "version": "77905b5a071e6f3669e3b1814cea30147c0801da"
     },
     "wildplus-kernel-patches": {
         "cargoLock": null,
