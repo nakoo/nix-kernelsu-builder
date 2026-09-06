@@ -133,7 +133,7 @@ fixedStdenv.mkDerivation {
       CORES=$(nproc)
     fi
 
-    make j$CORES \
+    make -j$CORES \
       LDFLAGS_vmlinux="--thinlto-jobs=$CORES" \
       ${builtins.concatStringsSep " " finalMakeFlags}
 

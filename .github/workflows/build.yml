@@ -10,6 +10,7 @@ on:
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron: '50 7 * * *'
+
 jobs:
   build-packages:
     strategy:
@@ -35,12 +36,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Redirect /nix onto the larger temp disk
+      - name: Verify disk and swap after cleanup
         run: |
-          sudo mkdir -p /mnt/nix
-          sudo mkdir -p /nix
-          sudo mount --bind /mnt/nix /nix
-          df -h /nix /mnt /
+          df -h / /mnt
+          free -h
+          swapon --show
 
       - name: Set up QEMU
         id: qemu
@@ -85,6 +85,8 @@ jobs:
 
       - name: Build nix packages
         run: |
+          nix flake update
+
           # Workaround GitHub Actions timeout
           (while true; do date; sleep 60; done) &
 
