@@ -31,7 +31,7 @@ _: {
           ];
           kernelPatches = [
             ./resources/resukisu-manual-hooks-coral.patch
-            ./resources/skip-dvt-overlay.patch
+            ./resources/disable-floral-dtbo.patch
           ];
           kernelSrc = sources.linux-google-coral.src;
           oemBootImg = ./resources/coral-boot.img;
