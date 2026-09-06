@@ -1,7 +1,7 @@
-From ecedfdfb9b0c610c8af16b0da763380ca4f0b178 Mon Sep 17 00:00:00 2001
+From 2497bd733d6be55f5352541a13ddcd6bfd4c6692 Mon Sep 17 00:00:00 2001
 From: user <user@host>
 Date: Sun, 6 Sep 2026 06:16:42 +0000
-Subject: [PATCH 2/2] disable-floral-dtbo.patch
+Subject: [PATCH 2/3] disable-floral-dtbo.patch
 
 ---
  arch/arm64/boot/Makefile            |  2 +-

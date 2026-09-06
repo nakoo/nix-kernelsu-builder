@@ -1,7 +1,7 @@
-From fccb0640c928e5084b9eca26b09798199868557f Mon Sep 17 00:00:00 2001
+From 432c7b2e11a107fe66fbeb588979e2f9d2f93563 Mon Sep 17 00:00:00 2001
 From: user <user@host>
 Date: Sun, 6 Sep 2026 07:09:07 +0000
-Subject: [PATCH] kbuild-use-modern-lz4-flags.patch
+Subject: [PATCH 3/3] kbuild-use-modern-lz4-flags.patch
 
 ---
  scripts/Makefile.lib | 2 +-

@@ -85,8 +85,6 @@ jobs:
 
       - name: Build nix packages
         run: |
-          nix flake update
-
           # Workaround GitHub Actions timeout
           (while true; do date; sleep 60; done) &
 

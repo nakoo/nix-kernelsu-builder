@@ -19,7 +19,6 @@ _: {
             kernelsuPatch = null;
           };
           kernelConfig = ''
-            CONFIG_KSU_MANUAL_HOOK=y
             CONFIG_LTO_CLANG_THIN=y
           '';
           kernelDefconfigs = [ "floral_defconfig" ];
