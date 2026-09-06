@@ -37,6 +37,7 @@ _: {
             substituteInPlace include/linux/susfs_def.h \
               --replace-fail "#define CMD_SUSFS_SUS_SU 0x60000" \
                 "#define CMD_SUSFS_SUS_SU 0x60000
+#define SUSFS_MAGIC 0xFAFA
 #define CMD_SUSFS_ADD_SUS_PATH_LOOP 0x55553
 #define CMD_SUSFS_HIDE_SUS_MNTS_FOR_NON_SU_PROCS 0x55561
 #define CMD_SUSFS_ENABLE_AVC_LOG_SPOOFING 0x60010
