@@ -32,6 +32,7 @@ _: {
           kernelPatches = [
             ./resources/resukisu-manual-hooks-coral.patch
             ./resources/disable-floral-dtbo.patch
+            ./resources/kbuild-use-modern-lz4-flags.patch
           ];
           kernelSrc = sources.linux-google-coral.src;
           oemBootImg = ./resources/coral-boot.img;
