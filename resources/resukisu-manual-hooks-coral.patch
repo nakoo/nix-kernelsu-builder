@@ -1,9 +1,10 @@
-From 0bc7dab76bdecee75c7c0777f9c105b7859268f0 Mon Sep 17 00:00:00 2001
+From 8133aa0ac3c95fbb745ff7ed43ff9f3434c41511 Mon Sep 17 00:00:00 2001
 From: user <user@host>
-Date: Sun, 6 Sep 2026 10:30:29 +0000
+Date: Sun, 6 Sep 2026 10:41:15 +0000
 Subject: [PATCH] resukisu-manual-hooks-coral.patch
 
 ---
+ drivers/input/input.c        |  9 +++++++++
  fs/exec.c                    | 10 ++++++++++
  fs/open.c                    | 10 ++++++++++
  fs/read_write.c              |  8 ++++++++
@@ -11,8 +12,33 @@ Subject: [PATCH] resukisu-manual-hooks-coral.patch
  kernel/reboot.c              |  8 ++++++++
  kernel/sys.c                 |  7 +++++++
  security/selinux/selinuxfs.c |  4 ++--
- 7 files changed, 68 insertions(+), 2 deletions(-)
+ 8 files changed, 77 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/input/input.c b/drivers/input/input.c
+index c5c301d0956b..134639c6b63c 100644
+--- a/drivers/input/input.c
++++ b/drivers/input/input.c
+@@ -443,11 +443,20 @@ static void input_handle_event(struct input_dev *dev,
+  * to 'seed' initial state of a switch or initial position of absolute
+  * axis, etc.
+  */
++#ifdef CONFIG_KSU
++extern __attribute__((cold)) int ksu_handle_input_handle_event(
++			unsigned int *type, unsigned int *code, int *value);
++#endif
++
+ void input_event(struct input_dev *dev,
+ 		 unsigned int type, unsigned int code, int value)
+ {
+ 	unsigned long flags;
+ 
++#ifdef CONFIG_KSU
++	ksu_handle_input_handle_event(&type, &code, &value);
++#endif
++
+ 	if (is_event_supported(type, dev->evbit, EV_MAX)) {
+ 
+ 		spin_lock_irqsave(&dev->event_lock, flags);
 diff --git a/fs/exec.c b/fs/exec.c
 index 3772c60aa9ba..53aba15eb8e0 100644
 --- a/fs/exec.c
