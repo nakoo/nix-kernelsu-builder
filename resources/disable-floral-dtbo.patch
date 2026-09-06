@@ -1,12 +1,26 @@
-From b35d17704e33cb817fe5e1756aba8f001c0cff09 Mon Sep 17 00:00:00 2001
+From ecedfdfb9b0c610c8af16b0da763380ca4f0b178 Mon Sep 17 00:00:00 2001
 From: user <user@host>
-Date: Sun, 6 Sep 2026 05:39:44 +0000
+Date: Sun, 6 Sep 2026 06:16:42 +0000
 Subject: [PATCH 2/2] disable-floral-dtbo.patch
 
 ---
+ arch/arm64/boot/Makefile            |  2 +-
  arch/arm64/boot/dts/google/Makefile | 26 --------------------------
- 1 file changed, 26 deletions(-)
+ 2 files changed, 1 insertion(+), 27 deletions(-)
 
+diff --git a/arch/arm64/boot/Makefile b/arch/arm64/boot/Makefile
+index 027024ba7efa..0e28c4d681db 100644
+--- a/arch/arm64/boot/Makefile
++++ b/arch/arm64/boot/Makefile
+@@ -74,7 +74,7 @@ $(obj)/Image.lz4-dtb: $(obj)/Image.lz4 $(DTB_OBJS) FORCE
+ 	$(call if_changed,cat)
+ 
+ $(obj)/dtbo.img: $(DTBO_OBJS) FORCE
+-	$(call if_changed,mkdtimg)
++	touch $@
+ 
+ install:
+ 	$(CONFIG_SHELL) $(srctree)/$(src)/install.sh $(KERNELRELEASE) \
 diff --git a/arch/arm64/boot/dts/google/Makefile b/arch/arm64/boot/dts/google/Makefile
 index dde0ffd38c98..cc882622343c 100644
 --- a/arch/arm64/boot/dts/google/Makefile
